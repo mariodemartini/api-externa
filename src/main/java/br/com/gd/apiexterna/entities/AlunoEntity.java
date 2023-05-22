@@ -18,5 +18,9 @@ public class AlunoEntity {
     private String sobrenome;
     private String email;
     private String endereco;
+    private String bairro;
+    private String cidade;
+    private String uf;
+    private String cep;
 
 }
