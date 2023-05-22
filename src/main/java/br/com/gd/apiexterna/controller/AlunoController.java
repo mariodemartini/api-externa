@@ -1,8 +1,8 @@
 package br.com.gd.apiexterna.controller;
 
-import br.com.gd.apiexterna.entities.AlunoEntity;
-import br.com.gd.apiexterna.repositories.AlunoRepository;
-import br.com.gd.apiexterna.services.AlunoService;
+import br.com.gd.apiexterna.dtos.requests.AlunoResquestDTO;
+import br.com.gd.apiexterna.dtos.responses.AlunoResponseDTO;
+import br.com.gd.apiexterna.facades.AlunoFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,32 +13,30 @@ import java.util.List;
 public class AlunoController {
 
     @Autowired
-    private AlunoService alunoService;
-    @Autowired
-    private AlunoRepository alunoRepository;
+    private AlunoFacade alunoFacade;
 
     @PostMapping
-    public AlunoEntity salvar(@RequestBody AlunoEntity alunoEntity){
-        return alunoService.cadastrarAluno(alunoEntity);
+    public AlunoResponseDTO salvar(@RequestBody AlunoResquestDTO alunoResquestDTO){
+        return alunoFacade.cadastrarAluno(alunoResquestDTO);
     }
 
     @PutMapping("/{id}")
-    public AlunoEntity alterar(@PathVariable String id, @RequestBody AlunoEntity alunoEntity){
-        return alunoService.alterarAluno(id, alunoEntity);
+    public AlunoResponseDTO alterar(@PathVariable String id, @RequestBody AlunoResquestDTO alunoResquestDTO){
+        return alunoFacade.alterarAluno(id, alunoResquestDTO);
     }
 
     @GetMapping("/{id}")
-    public AlunoEntity buscar(@PathVariable String id){
-        return alunoService.buscarAlunoPorId(id);
+    public AlunoResponseDTO buscar(@PathVariable String id){
+        return alunoFacade.buscarPorId(id);
     }
 
     @GetMapping
-    public List<AlunoEntity> listar(){
-        return alunoService.listarAlunos();
+    public List<AlunoResponseDTO> listar(){
+        return alunoFacade.listarAlunos();
     }
 
     @DeleteMapping("/{id}")
     public void remover(@PathVariable String id){
-        alunoService.removerAluno(id);
+        alunoFacade.removerAluno(id);
     }
 }
